@@ -15,7 +15,7 @@ import { InputFileOptions } from '../utils/configuration.model';
 })
 export class InputfileComponent implements OnInit {
 
-  @ViewChild('file') file;
+  @ViewChild('file', {static: true}) file;
 
   files: Set<File> = new Set();
 
