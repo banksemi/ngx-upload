@@ -1,6 +1,6 @@
 import { AbstractUploadService } from './abstractUpload.service';
 import { NgxUploadLogger } from '../utils/logger.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { UploadEndPoint } from '../utils/configuration.model';
 
 export class FileItem {
@@ -18,6 +18,8 @@ export class FileItem {
     alias = 'file';
 
     sub: Subscription;
+
+    public onSuccess$ = new Subject();
 
     constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger) {
     }
@@ -58,6 +60,10 @@ export class FileItem {
     }
 
     ɵonSuccess() {
+        if (this.isSuccess == false)
+        {
+            this.onSuccess$.next();
+        }
         this.isReady = false;
         this.uploadInProgress = false;
         this.isSuccess = true;
