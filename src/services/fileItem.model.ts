@@ -94,7 +94,8 @@ export class FileItem {
         this.isCancel = true;
         this.isError = false;
         this.progress = 0;
-        this.sub.unsubscribe();
+        if (this.sub != null)
+            this.sub.unsubscribe();
     }
 
 
