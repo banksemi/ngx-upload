@@ -28,6 +28,7 @@ export class NgxDragAndDropDirective implements OnInit {
 
     uploader: AbstractUploadService;
 
+    public last_dragover = new Date("1998-01-01").getTime();
     @Input()
     set ngxDragAndDrop(dropOptions: DropTargetOptions) {
         if (dropOptions) {
@@ -104,6 +105,7 @@ export class NgxDragAndDropDirective implements OnInit {
 
     @HostListener('dragover', ['$event'])
     onDragOver(event: DragEvent) {
+        this.last_dragover = new Date().getTime();
         this.logger.debug('dragover event');
         this.renderer.removeClass(this.el.nativeElement, this.dropOptions.color);
         this.renderer.removeClass(this.el.nativeElement, this.dropOptions.colorDrop);
