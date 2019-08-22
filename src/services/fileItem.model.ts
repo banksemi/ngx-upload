@@ -19,6 +19,7 @@ export class FileItem {
     sub: Subscription;
 
     public onSuccess$ = new Subject();
+    public onError$ = new Subject();
 
     constructor(public file: File, private uploadService: AbstractUploadService, protected logger: NgxUploadLogger) {
     }
@@ -85,7 +86,8 @@ export class FileItem {
         this.progress = 100;
     }
 
-    ɵonError() {
+    ɵonError() {        
+        this.onError$.next();
         this.isReady = false;
         this.uploadInProgress = false;
         this.isSuccess = false;
